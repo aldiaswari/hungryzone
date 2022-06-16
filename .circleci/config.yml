@@ -1,36 +1,14 @@
-version: 2.1
-
-orbs:
-  heroku: circleci/heroku@0.0.10 # Invoke the Heroku orb
+jobs:
+  example-job:
+    docker:
+      # replace with your preferred image
+      - image: cimg/base:stable
+    steps:
+      - browser-tools/install-browser-tools:
+          install-chrome: true 
+          chrome-version: '102.0.5005.115' 
 
 workflows:
-  heroku_deploy:
+  example-workflow:
     jobs:
-      - build
-      - heroku/deploy-via-git: # Use the pre-configured job, deploy-via-git
-          requires:
-            - build
-          filters:
-            branches:
-              only: sequential-branch-filter
-jobs:
-  build:
-    docker:
-      - image: cimg/ruby:2.4-node
-        auth:
-          username: mydockerhub-user
-          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
-      - image: cimg/postgres:9.6
-        auth:
-          username: mydockerhub-user
-          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
-    working_directory: ~/circleci-demo-workflows
-    steps:
-      - checkout
-      # Bundle install dependencies
-      - run: bundle install --path vendor/bundle
-      # Database setup
-      - run: bundle exec rake db:create db:schema:load
-      - run:
-          name: Run tests
-          command: rake
+      - example-job
