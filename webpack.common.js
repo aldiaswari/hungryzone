@@ -74,7 +74,7 @@ module.exports = {
         ]
       }
     ]
-  }
+  }),
     new FixStyleOnlyEntriesPlugin(),
     new OptimizeCSSAssetsPlugin({}),
     new BundleAnalyzerPlugin(),
