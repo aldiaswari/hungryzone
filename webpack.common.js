@@ -21,12 +21,20 @@ module.exports = {
     rules: [
       {
         test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader'],
+         use: [
+          {
+            loader: 'style-loader',
+          },
+          {
+            loader: 'css-loader',
+          },
+    /*    use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/,
         use: ['file-loader'],
       },
+      */
     ],
   },
   plugins: [
@@ -56,25 +64,8 @@ module.exports = {
         })
       ],
     }),
-   // new MiniCssExtractPlugin({ filename: '[name].css' }),
-     new MiniCssExtractPlugin({
-      // Options similar to the same options in webpackOptions.output
-      // both options are optional
-      filename: "[name].css",
-      chunkFilename: "[id].css"
-    })
-  ],
-  module: {
-    rules: [
-      {
-        test: /\.css$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          "css-loader"
-        ]
-      }
-    ]
-  }),
+   new MiniCssExtractPlugin({ filename: '[name].css' }),
+     
     new FixStyleOnlyEntriesPlugin(),
     new OptimizeCSSAssetsPlugin({}),
     new BundleAnalyzerPlugin(),
