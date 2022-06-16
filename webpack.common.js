@@ -57,6 +57,24 @@ module.exports = {
       ],
     }),
    // new MiniCssExtractPlugin({ filename: '[name].css' }),
+     new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: "[name].css",
+      chunkFilename: "[id].css"
+    })
+  ],
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader"
+        ]
+      }
+    ]
+  }
     new FixStyleOnlyEntriesPlugin(),
     new OptimizeCSSAssetsPlugin({}),
     new BundleAnalyzerPlugin(),
