@@ -4,7 +4,7 @@ jobs:
     docker:
         - image: circleci/node:13-browsers
           environment:
-            CHROME_BIN: "Program Files (x86)\Google\Chrome\Application\Chrome.exe"
+            CHROME_BIN="C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
     steps:
         - checkout
         - run:
