@@ -56,7 +56,7 @@ module.exports = {
         })
       ],
     }),
-    new MiniCssExtractPlugin({ filename: '[name].css' }),
+   // new MiniCssExtractPlugin({ filename: '[name].css' }),
     new FixStyleOnlyEntriesPlugin(),
     new OptimizeCSSAssetsPlugin({}),
     new BundleAnalyzerPlugin(),
