@@ -1,11 +1,36 @@
+version: 2
 jobs:
-  example-job:
+  build:
     docker:
-      # replace with your preferred image
-      - image: cimg/base:stable
+        - image: circleci/node:13-browsers
+          environment:
+            CHROME_BIN: "/usr/bin/google-chrome"
     steps:
-      - browser-tools/install-chrome
+        - checkout
+        - run:
+            name: Update npm
+            command: 'sudo npm install -g npm@latest'
+        - restore_cache:
+            key: dependency-cache-{{ checksum "package.json" }}
+        - run:
+            name: Installing dependencies (npm install)
+            command: npm install
+        - save_cache:
+            key: dependency-cache-{{ checksum "package.json" }}
+            paths:
+              - node_modules
+        - run:
+            name: npm run test:coverage
+            command: npm run test:coverage
+        - run:
+            name: npm run lint
+            command: npm run lint
+        - store_artifacts:
+            path: dist
+            prefix: dist
+
 workflows:
-  example-workflow:
+  version: 2
+  test:
     jobs:
-      - example-job
+      - build
